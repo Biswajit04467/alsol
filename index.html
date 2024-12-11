@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amandeep Kaur</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            font-size: 1.1em;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Amandeep Kaur</h1>
+        <p><strong>Contact Information:</strong> 6723776892 | amandeep79910@gmail.com | LinkedIn</p>
+        <div class="section">
+            <h2>Objective</h2>
+            <p>A dedicated and motivated professional. Strong organizational, active listening, and time
+                management skills. Cash handling experience, who has strong communication and
+                interpersonal skills. People and sales oriented, reliable, dependable, an independent thinker,
+
+                and a great Team player.</p>
+        </div>
+        <!-- work-2 -->
+        <div class="section">
+            <h2>Experience</h2>
+            <p><strong>APC - Safeway</strong> (09/2023 - present)</p>
+            <ul>
+                <li>Working as APC at Safeway, mainly at the customer service desk.</li>
+                <li>Responsibilities – Handling cash, customer support, making returns, Maintaining the cash
+                    drawer, and ensuring all transactions are accounted for at the end of each shift.</li>
+            </ul>
+        </div>
+        <!-- work-1 -->
+        <div class="section">
+
+            <p><strong>Consultant (Project-Based) - Pattison Food Group</strong> (01/2023 - 04/2023)</p>
+            <ul>
+                <li>Responsibility/achievement 1Conducted a comprehensive analysis to identify and address operational
+                    and strategic
+                    issues within the organization.
+                     Presented actionable solutions to enhance efficiency, customer satisfaction, and
+                    profitability.</li>
+                <li>Collaborated with cross-functional teams to ensure the successful implementation of
+                    recommendations.
+                     Received an Appreciation Letter from the senior IT project manager for exceptional
+                    problem-solving and contribution to business improvement.</li>
+            </ul>
+        </div>
+
+        <!-- education -->
+        <div class="section">
+            <h2>Education</h2>
+            <p><strong>BSc Hons. in Botany - University of Delhi</strong> (2017 - 2020)</p>
+            <p>Location: Delhi | Division: First</p>
+
+            <p><strong>Post Graduate Diploma in Environmental Studies - Sabarmati University</strong> (2020 - 2021)</p>
+            <p>Location: Ahmedabad | Division: First</p>
+
+            <p><strong>Master’s (MBA) in Business - University Canada West</strong> (2023 - 2024)</p>
+            <p>Location: Vancouver</p>
+        </div>
+
+        <div class="section">
+            <h2>Skills</h2>
+            <ul>
+                <li>Fast Learner</li>
+                <li>Accuracy and detail-oriented</li>
+                <li>Problem solver</li>
+                <li>Responsible with a strong work ethic</li>
+                <li>Supportive</li>
+                <li>Collaborative and engaging</li>
+                <li>Customer Service Delivery Skills</li>
+                <li>MS Excel</li>
+                <li>Flexible with work</li>
+            </ul>
+        </div>
+
+        <!-- <div class="section">
+            <h2>Projects</h2>
+            <p>Highlight relevant personal or professional projects.</p>
+        </div> -->
+        <div class="section">
+            <h2>Visitor Count</h2>
+            <p><strong>Visitors:</strong> <span id="visitor-count">Loading...</span></p>
+        </div>
+    </div>
+    <script>
+
+
+        async function logVisit() {
+            try {
+                // 
+                const response = await fetch('http://localhost:5000/api/v1/log-visit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        ipAddress: '127.0.0.1',
+                        browserInfo: navigator.userAgent,
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                console.log('Visit logged successfully');
+            } catch (error) {
+                console.error('Error logging visit:', error);
+            }
+        }
+
+
+        async function updateVisitorCount() {
+            try {
+
+                const response = await fetch('http://localhost:5000/api/v1/getData', {
+                    method: 'GET',
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+
+                const jsonResponse = await response.json();
+                const count = jsonResponse.count;
+
+
+                if (count !== undefined) {
+                    document.getElementById('visitor-count').textContent = count;
+                } else {        
+                    throw new Error('Count not found in response');
+                }
+            } catch (error) {
+                console.error('Error fetching visitor count:', error);
+                document.getElementById('visitor-count').textContent = 'Error: Invalid response.';
+            }
+        }
+
+
+        window.onload = async () => {
+            await logVisit();
+            await updateVisitorCount();
+        };
+
+
+    </script>
+</body>
+
+</html>
